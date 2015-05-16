@@ -1,2 +1,2 @@
-# webslinger.io
-The webslinger.io website
+# Toot Rippington
+Endless runner, written in HTML/JavaScript using Phaser.io, developed with my son.
