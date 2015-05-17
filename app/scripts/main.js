@@ -1,4 +1,7 @@
-var toot = {};
+var toot = {
+    gravity: (300 - (300 * 0.83)),
+    fartStrength: 150
+};
 toot.environment = {};
 toot.character = {};
 
@@ -19,7 +22,7 @@ var run = function() {
             update: update
         });
 
-    var cursors;
+    //var cursors;
     var player = new toot.character.Player(game);
     var ground = new toot.environment.Ground(game);
     var background = new toot.environment.Background(game);
@@ -48,7 +51,7 @@ var run = function() {
         vignette.create();
 
         // Key Input
-        cursors = game.input.keyboard.createCursorKeys();
+        //cursors = game.input.keyboard.createCursorKeys();
     }
 
     function update() {
@@ -56,7 +59,7 @@ var run = function() {
 
         game.physics.arcade.collide(player.getColliders(), ground.getColliders());
 
-        player.update(cursors);
+        player.update();
         background.update();
 
         stats.end();

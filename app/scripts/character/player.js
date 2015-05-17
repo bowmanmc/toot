@@ -10,37 +10,41 @@ toot.character.Player.prototype.preload = function() {
 
 toot.character.Player.prototype.create = function() {
     // player
-    this.sprite = this.game.add.sprite(32, this.game.world.height - 150, 'dude');
+    var startX = this.game.world.width * 0.15;
+    var startY = this.game.world.height - 128;
+
+    this.sprite = this.game.add.sprite(startX, startY, 'dude');
     this.game.physics.arcade.enable(this.sprite);
-    this.sprite.body.bounce.y = 0.2;
-    this.sprite.body.gravity.y = 300;
+    //this.sprite.body.bounce.y = 0.1;
+    this.sprite.body.gravity.y = toot.gravity;
     this.sprite.body.collideWorldBounds = true;
 
-    this.sprite.animations.add('left', [0, 1, 2, 3], 10, true);
-    this.sprite.animations.add('right', [5, 6, 7, 8], 10, true);
+    //this.sprite.animations.add('right', [5, 6, 7, 8], 10, true);
+    this.sprite.animations.add('run', [5, 6, 7, 8], 3, true);
+    this.sprite.animations.add('land', [5, 6, 7, 8], 2, true);
 };
 
 toot.character.Player.prototype.update = function(cursors) {
     //  Reset the players velocity (movement)
     this.sprite.body.velocity.x = 0;
 
-    if (cursors.left.isDown) {
-        this.sprite.body.velocity.x = -150;
-        this.sprite.animations.play('left');
-    }
-    else if (cursors.right.isDown) {
-        this.sprite.body.velocity.x = 150;
-        this.sprite.animations.play('right');
-    }
-    else {
-        this.sprite.animations.stop();
-        this.sprite.frame = 4;
+    //console.log(this.sprite.body.velocity.y);
+
+    if (this.game.input.activePointer.isDown) {
+        this.sprite.body.velocity.y = toot.fartStrength * -1;
     }
 
-    //  Allow the player to jump if they are touching the ground.
-    if (cursors.up.isDown && this.sprite.body.touching.down) {
-        this.sprite.body.velocity.y = -350;
+    if (this.sprite.body.touching.down) {
+        this.sprite.animations.play('run');
     }
+    else if (this.sprite.body.velocity.y > 0 &&
+             this.sprite.body.velocity.y > (toot.fartStrength * 0.66)) {
+        this.sprite.animations.play('land');
+    }
+    else {
+        this.sprite.frame = 8;
+    }
+
 };
 
 toot.character.Player.prototype.getColliders = function() {
