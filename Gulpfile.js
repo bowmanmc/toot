@@ -1,7 +1,6 @@
 // Generated on 2015-03-07 using generator-jekyllrb-gulp 0.1.1
 var gulp        = require('gulp');
 var browserSync = require('browser-sync');
-var clean       = require('gulp-clean');
 var concat      = require('gulp-concat');
 var cp          = require('child_process');
 var debug       = require('gulp-debug');

@@ -1,6 +1,7 @@
 var toot = {
-    gravity: (300 - (300 * 0.83)),
-    fartStrength: 150
+    //gravity: (300 * 0.27),
+    gravity: 300,
+    fartStrength: 250
 };
 toot.environment = {};
 toot.character = {};
@@ -14,7 +15,7 @@ var run = function() {
     stats.domElement.style.top = '0px';
 
     var game = new Phaser.Game(
-        1920, 1080,
+        1334, 750,
         Phaser.AUTO,
         '', {
             preload: preload,
