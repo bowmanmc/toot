@@ -18,8 +18,8 @@ toot.environment.Background.prototype.create = function() {
 };
 
 toot.environment.Background.prototype.update = function() {
-    this.spaceBg.tilePosition.x -= 0.100;
-    this.starsSm.tilePosition.x -= 0.125;
-    this.starsLg.tilePosition.x -= 0.150;
+    this.spaceBg.tilePosition.x -= 0.1;
+    this.starsSm.tilePosition.x -= 0.2;
+    this.starsLg.tilePosition.x -= 0.3;
 
 };

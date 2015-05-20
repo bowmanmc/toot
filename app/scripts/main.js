@@ -37,7 +37,7 @@ var run = function() {
     }
 
     function create () {
-        // Platforms
+
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
         game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
@@ -46,6 +46,7 @@ var run = function() {
         game.scale.setScreenSize(true);
         game.scale.refresh();
 
+        // Create game objects
         background.create();
         ground.create();
         player.create();
@@ -60,8 +61,9 @@ var run = function() {
 
         game.physics.arcade.collide(player.getColliders(), ground.getColliders());
 
-        player.update();
         background.update();
+        ground.update();
+        player.update();
 
         stats.end();
     }

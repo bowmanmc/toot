@@ -11,7 +11,7 @@ toot.character.Player.prototype.preload = function() {
 toot.character.Player.prototype.create = function() {
     // player
     var startX = this.game.world.width * 0.15;
-    var startY = this.game.world.height - 128;
+    var startY = this.game.world.height - 256;
 
     this.sprite = this.game.add.sprite(startX, startY, 'dude');
     this.game.physics.arcade.enable(this.sprite);
