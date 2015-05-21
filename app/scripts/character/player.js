@@ -1,11 +1,11 @@
 
 toot.character.Player = function(game) {
     this.game = game;
-    this.sprite;
+    this.sprite = null;
 };
 
 toot.character.Player.prototype.preload = function() {
-    this.game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
+    this.game.load.spritesheet('dude', 'images/dude.png', 64, 96);
 };
 
 toot.character.Player.prototype.create = function() {

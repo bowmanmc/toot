@@ -1,7 +1,6 @@
 
 toot.environment.Ground = function(game) {
     this.game = game;
-    this.group;
 };
 
 toot.environment.Ground.prototype.preload = function() {
@@ -11,11 +10,7 @@ toot.environment.Ground.prototype.preload = function() {
 toot.environment.Ground.prototype.create = function() {
     var w = this.game.world.width;
     var h = this.game.world.height;
-    //this.group = this.game.add.group();
-    //this.group.enableBody = true;
-    //var g = this.group.create(0, this.game.world.height - 48, 'ground');
-    //g.scale.setTo(0.5, 0.5);
-    //g.body.immovable = true;
+
     var yPos = h - 64;
     this.ground = this.game.add.tileSprite(0, yPos, w, h, 'ground');
 
@@ -28,7 +23,7 @@ toot.environment.Ground.prototype.create = function() {
 };
 
 toot.environment.Ground.prototype.update = function() {
-    this.ground.tilePosition.x -= 0.4;
+    this.ground.tilePosition.x -= 1.25;
 };
 
 toot.environment.Ground.prototype.getColliders = function() {

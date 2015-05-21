@@ -121,7 +121,7 @@ gulp.task('js', function() {
         .pipe(concat('game.js'))
         //.pipe(uglify())
         .pipe(rename({ suffix: '.min' }))
-        //.pipe(sourcemaps.write())
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest('app/scripts/'))
         .pipe(browserSync.reload({ stream: true }));
 });

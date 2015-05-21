@@ -1,10 +1,16 @@
 var toot = {
     //gravity: (300 * 0.27),
     gravity: 300,
-    fartStrength: 250
+    fartStrength: 250,
+    currentDistance: 0,
+
+    // namespacing
+    character: {},
+    environment: {},
+    obstacle: {},
+    ui: {}
 };
-toot.environment = {};
-toot.character = {};
+
 
 
 var run = function() {
@@ -27,13 +33,22 @@ var run = function() {
     var player = new toot.character.Player(game);
     var ground = new toot.environment.Ground(game);
     var background = new toot.environment.Background(game);
+
+    var obstacleGenerator = new toot.obstacle.Generator(game);
+    var uiDistance = new toot.ui.Distance(game);
+
     var vignette = new toot.environment.Vignette(game);
+
 
     function preload () {
         background.preload();
         ground.preload();
         player.preload();
         vignette.preload();
+
+        obstacleGenerator.preload();
+
+        uiDistance.preload();
     }
 
     function create () {
@@ -50,10 +65,13 @@ var run = function() {
         background.create();
         ground.create();
         player.create();
-        vignette.create();
 
-        // Key Input
-        //cursors = game.input.keyboard.createCursorKeys();
+
+        obstacleGenerator.create();
+
+        uiDistance.create();
+
+        vignette.create();
     }
 
     function update() {
@@ -64,6 +82,12 @@ var run = function() {
         background.update();
         ground.update();
         player.update();
+
+        obstacleGenerator.update();
+
+        uiDistance.update();
+
+        toot.currentDistance++;
 
         stats.end();
     }
