@@ -11,7 +11,7 @@ toot.environment.Ground.prototype.create = function() {
     var w = this.game.world.width;
     var h = this.game.world.height;
 
-    var yPos = h - 64;
+    var yPos = h - 97;
     this.ground = this.game.add.tileSprite(0, yPos, w, h, 'ground');
 
     this.game.physics.arcade.enable(this.ground);
@@ -23,7 +23,7 @@ toot.environment.Ground.prototype.create = function() {
 };
 
 toot.environment.Ground.prototype.update = function() {
-    this.ground.tilePosition.x -= 1.25;
+    this.ground.tilePosition.x -= 0.85;
 };
 
 toot.environment.Ground.prototype.getColliders = function() {
