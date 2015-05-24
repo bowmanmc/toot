@@ -5,7 +5,7 @@ toot.character.Player = function(game) {
 };
 
 toot.character.Player.prototype.preload = function() {
-    this.game.load.spritesheet('dude', 'images/dude.png', 64, 96);
+    this.game.load.spritesheet('dude', 'images/toot-spritesheet.png', 64, 96);
 };
 
 toot.character.Player.prototype.create = function() {
@@ -20,8 +20,8 @@ toot.character.Player.prototype.create = function() {
     this.sprite.body.collideWorldBounds = true;
 
     //this.sprite.animations.add('right', [5, 6, 7, 8], 10, true);
-    this.sprite.animations.add('run', [5, 6, 7, 8], 5, true);
-    this.sprite.animations.add('land', [5, 6, 7, 8], 3, true);
+    this.sprite.animations.add('run', [6, 7], 10, true);
+    this.sprite.animations.add('land', [6, 7], 3, true);
 };
 
 toot.character.Player.prototype.update = function(cursors) {
@@ -42,7 +42,7 @@ toot.character.Player.prototype.update = function(cursors) {
         this.sprite.animations.play('land');
     }
     else {
-        this.sprite.frame = 8;
+        this.sprite.frame = 4;
     }
 
 };
