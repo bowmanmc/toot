@@ -10,9 +10,9 @@ toot.obstacle.Generator.prototype.create = function() {
     var w = this.game.world.width;
     var h = this.game.world.height;
 
-    this.rock = this.game.add.sprite(w, h / 2, 'rock');
+    //this.rock = this.game.add.sprite(w, h / 2, 'rock');
 };
 
 toot.obstacle.Generator.prototype.update = function() {
-    this.rock.position.x -= 2.5;
+    //this.rock.position.x -= 2.5;
 };

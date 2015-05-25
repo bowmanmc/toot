@@ -1,11 +1,15 @@
 
 toot.character.Player = function(game) {
     this.game = game;
-    this.sprite = null;
+    this.spriteToot = null;
+    this.spriteBlast = null;
 };
 
 toot.character.Player.prototype.preload = function() {
-    this.game.load.spritesheet('dude', 'images/toot-spritesheet.png', 64, 96);
+    this.game.load.spritesheet('toot', 'images/toot-spritesheet.png', 64, 96);
+    this.game.load.spritesheet('blast', 'images/blast-spritesheet.png', 60, 63);
+
+    this.game.load.audio('fart', 'sounds/fart-02.wav');
 };
 
 toot.character.Player.prototype.create = function() {
@@ -13,40 +17,51 @@ toot.character.Player.prototype.create = function() {
     var startX = this.game.world.width * 0.15;
     var startY = this.game.world.height - 256;
 
-    this.sprite = this.game.add.sprite(startX, startY, 'dude');
-    this.game.physics.arcade.enable(this.sprite);
-    //this.sprite.body.bounce.y = 0.1;
-    this.sprite.body.gravity.y = toot.gravity;
-    this.sprite.body.collideWorldBounds = true;
+    this.spriteToot = this.game.add.sprite(startX, startY, 'toot');
+    this.game.physics.arcade.enable(this.spriteToot);
 
-    //this.sprite.animations.add('right', [5, 6, 7, 8], 10, true);
-    this.sprite.animations.add('run', [5, 6, 7, 8], 6, true);
-    this.sprite.animations.add('land', [5, 6, 7, 8], 2, true);
+    this.spriteToot.body.gravity.y = toot.gravity;
+    this.spriteToot.body.collideWorldBounds = true;
+
+    this.spriteToot.animations.add('run', [5, 6, 7, 8], 6, true);
+    this.spriteToot.animations.add('land', [5, 6, 7, 8], 2, true);
+
+    // blast
+    this.spriteBlast = this.game.add.sprite(startX - 60, startY + 60, 'blast');
+    this.spriteBlast.animations.add('fart', [1, 3, 4, 4, 0], 10, false);
+
+    this.soundFart = this.game.add.audio('fart');
+    this.soundFart.allowMultiple = false;
 };
 
 toot.character.Player.prototype.update = function(cursors) {
     //  Reset the players velocity (movement)
-    this.sprite.body.velocity.x = 0;
+    this.spriteToot.body.velocity.x = 0;
 
     //console.log(this.sprite.body.velocity.y);
 
     if (this.game.input.activePointer.isDown) {
-        this.sprite.body.velocity.y = toot.fartStrength * -1;
+        this.spriteToot.body.velocity.y = toot.fartStrength * -1;
+        this.spriteBlast.animations.play('fart');
+        //this.soundFart.play('', 0.35, 1, false, false);
+        this.soundFart.play('', 0, 1, false, false);
     }
-
-    if (this.sprite.body.touching.down) {
-        this.sprite.animations.play('run');
+    if (this.spriteToot.body.touching.down) {
+        this.spriteToot.animations.play('run');
+        this.spriteBlast.frame = 0;
     }
-    else if (this.sprite.body.velocity.y > 0 &&
-             this.sprite.body.velocity.y > (toot.fartStrength * 0.66)) {
-        this.sprite.animations.play('land');
+    else if (this.spriteToot.body.velocity.y > 0 &&
+             this.spriteToot.body.velocity.y > (toot.fartStrength * 0.66)) {
+        this.spriteToot.animations.play('land');
     }
     else {
-        this.sprite.frame = 4;
+        this.spriteToot.frame = 4;
     }
 
+    this.spriteBlast.position.x = this.spriteToot.body.position.x - 38;
+    this.spriteBlast.position.y = this.spriteToot.body.position.y + 80;
 };
 
 toot.character.Player.prototype.getColliders = function() {
-    return this.sprite;
+    return this.spriteToot;
 };
