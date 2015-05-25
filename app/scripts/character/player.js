@@ -20,8 +20,8 @@ toot.character.Player.prototype.create = function() {
     this.sprite.body.collideWorldBounds = true;
 
     //this.sprite.animations.add('right', [5, 6, 7, 8], 10, true);
-    this.sprite.animations.add('run', [6, 7], 10, true);
-    this.sprite.animations.add('land', [6, 7], 3, true);
+    this.sprite.animations.add('run', [5, 6, 7, 8], 6, true);
+    this.sprite.animations.add('land', [5, 6, 7, 8], 2, true);
 };
 
 toot.character.Player.prototype.update = function(cursors) {
