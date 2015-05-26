@@ -19,7 +19,7 @@ var uglify      = require('gulp-uglify');
 var uncss       = require('gulp-uncss');
 var wiredep     = require('wiredep').stream;
 
-var GH_PAGES_BRANCH = '/tmp/webslinger.io';
+var GH_PAGES_BRANCH = '/tmp/toot';
 
 gulp.task('default', ['develop']);
 gulp.task('develop', ['browser-sync', 'watch']);
@@ -27,13 +27,14 @@ gulp.task('build', ['sass', 'js', 'vendor']);
 
 gulp.task('dist', ['build', 'clean-dist'], function() {
     console.log('Publishing to: ' + GH_PAGES_BRANCH);
-    gulp.src('build/**/*')
+    gulp.src('app/**/*')
         .pipe(gulp.dest(GH_PAGES_BRANCH));
     var ver = GH_PAGES_BRANCH + '/version.txt';
     var now = moment();
 
-    fs.appendFileSync(ver, '\ntoot');
-    fs.appendFileSync(ver, '\n=============');
+    fs.appendFileSync(ver, '\nToot Rippington - Blasts Off!');
+    fs.appendFileSync(ver, '\n=============================');
+    fs.appendFileSync(ver, '\nName: toot');
     fs.appendFileSync(ver, '\nVersion: ' + pkg.version);
     fs.appendFileSync(ver, '\nBuild Time: ' + now.format('YYYY-MM-DD HH:mm:ss'));
     fs.appendFileSync(ver, '\nBuild Host: ' + os.hostname() + ' [' + os.platform() + ']');
