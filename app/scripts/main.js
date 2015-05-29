@@ -31,14 +31,15 @@ var run = function() {
 
     //var cursors;
     var player = new toot.character.Player(game);
+
     var ground = new toot.environment.Ground(game);
     var background = new toot.environment.Background(game);
 
-    var obstacleGenerator = new toot.obstacle.Generator(game);
     var uiDistance = new toot.ui.Distance(game);
 
     var vignette = new toot.environment.Vignette(game);
 
+    var obstacles = new toot.obstacle.Generator(game);
 
     function preload () {
         background.preload();
@@ -46,7 +47,7 @@ var run = function() {
         player.preload();
         vignette.preload();
 
-        obstacleGenerator.preload();
+        obstacles.preload();
 
         uiDistance.preload();
     }
@@ -67,25 +68,35 @@ var run = function() {
         player.create();
 
 
-        obstacleGenerator.create();
+        obstacles.create();
 
-        uiDistance.create();
+        //uiDistance.create();
 
         vignette.create();
+    }
+
+    function collisionHandler(toot, obstacle) {
+        console.log('collision detected!');
     }
 
     function update() {
         stats.begin();
 
         game.physics.arcade.collide(player.getColliders(), ground.getColliders());
+        game.physics.arcade.collide(player.getColliders(), obstacles.getColliders(), collisionHandler, null, this);
+
+        //game.debug.bodyInfo(player.getColliders(), 32, 32);
+        //game.debug.bodyInfo(obstacles.getColliders(), 32, 256);
+        //game.debug.body(obstacles.getColliders());
+        //game.debug.body(player.getColliders());
 
         background.update();
         ground.update();
         player.update();
 
-        obstacleGenerator.update();
+        obstacles.update();
 
-        uiDistance.update();
+        //uiDistance.update();
 
         toot.currentDistance++;
 
