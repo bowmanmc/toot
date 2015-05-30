@@ -58,8 +58,8 @@ toot.character.Player.prototype.update = function(cursors) {
         this.spriteToot.frame = 4;
     }
 
-    this.spriteBlast.position.x = this.spriteToot.body.position.x - 38;
-    this.spriteBlast.position.y = this.spriteToot.body.position.y + 80;
+    this.spriteBlast.position.x = this.spriteToot.position.x - 38;
+    this.spriteBlast.position.y = this.spriteToot.position.y + 80;
 };
 
 toot.character.Player.prototype.getColliders = function() {

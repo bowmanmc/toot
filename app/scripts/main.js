@@ -55,6 +55,8 @@ var run = function() {
     function create () {
 
         game.physics.startSystem(Phaser.Physics.ARCADE);
+        //game.physics.startSystem(Phaser.Physics.NINJA);
+        //game.physics.startSystem(Phaser.Physics.P2JS);
 
         game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         game.scale.pageAlignHorizontally = true;
@@ -85,10 +87,10 @@ var run = function() {
         game.physics.arcade.collide(player.getColliders(), ground.getColliders());
         game.physics.arcade.collide(player.getColliders(), obstacles.getColliders(), collisionHandler, null, this);
 
-        //game.debug.bodyInfo(player.getColliders(), 32, 32);
-        //game.debug.bodyInfo(obstacles.getColliders(), 32, 256);
+        game.debug.bodyInfo(player.getColliders(), 32, 32);
+        game.debug.bodyInfo(obstacles.getColliders(), 32, 256);
         //game.debug.body(obstacles.getColliders());
-        //game.debug.body(player.getColliders());
+        game.debug.body(player.getColliders());
 
         background.update();
         ground.update();
