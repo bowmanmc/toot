@@ -3,6 +3,8 @@ toot.character.Player = function(game) {
     this.game = game;
     this.spriteToot = null;
     this.spriteBlast = null;
+
+    this.collisionGroup = null;
 };
 
 toot.character.Player.prototype.preload = function() {
