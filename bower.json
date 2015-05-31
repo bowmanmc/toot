@@ -6,7 +6,8 @@
     "momentjs": "~2.10.3",
     "pixi": "~3.0.5",
     "phaser": "~2.3.0",
-    "phaser-examples": "*"
+    "phaser-examples": "*",
+    "babel-polyfill": "~0.0.1"
   },
   "devDependencies": {}
 }

@@ -1,5 +1,6 @@
 // Generated on 2015-03-07 using generator-jekyllrb-gulp 0.1.1
 var gulp        = require('gulp');
+var babel       = require('gulp-babel');
 var browserSync = require('browser-sync');
 var concat      = require('gulp-concat');
 var cp          = require('child_process');
@@ -50,6 +51,7 @@ gulp.task('clean-dist', function (done) {
 gulp.task('watch', function () {
     gulp.watch('app/styles/**/*.scss', ['sass']);
     gulp.watch(['app/scripts/**/*.js', '!app/scripts/game.min.js'], ['js']);
+    //gulp.watch('app/src/**/*.js', ['babel']);
     gulp.watch([
         'app/index.html',
         'app/images/*',
@@ -112,8 +114,20 @@ gulp.task('bower', function () {
         .pipe(wiredep({
             src: src,
             ignorePath: '..'
-        }))
-        ;//.pipe(gulp.dest());
+        }));
+});
+
+// Doesn't work...
+gulp.task('babel', function() {
+    //gulp.src('app/src/main.js')
+    gulp.src('app/src/**/*.js')
+        .pipe(sourcemaps.init())
+        .pipe(babel())
+        .pipe(concat('game.js'))
+        //.pipe(uglify())
+        .pipe(rename({ suffix: '.min' }))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest('app/scripts'));
 });
 
 gulp.task('js', function() {
