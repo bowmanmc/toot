@@ -87,11 +87,6 @@ var run = function() {
         game.physics.arcade.collide(player.getColliders(), ground.getColliders());
         game.physics.arcade.collide(player.getColliders(), obstacles.getColliders(), collisionHandler, null, this);
 
-        game.debug.bodyInfo(player.getColliders(), 32, 32);
-        game.debug.bodyInfo(obstacles.getColliders(), 32, 256);
-        //game.debug.body(obstacles.getColliders());
-        game.debug.body(player.getColliders());
-
         background.update();
         ground.update();
         player.update();

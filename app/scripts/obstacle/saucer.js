@@ -6,6 +6,10 @@ toot.obstacle.Saucer = function(game) {
     this.collisionGroup = null;
 
     this.velocity = 300;
+    this.rotMax = 0.025;
+    this.rotInc = 0.0025;
+
+    this.debug = false;
 };
 
 toot.obstacle.Saucer.prototype.preload = function() {
@@ -14,7 +18,7 @@ toot.obstacle.Saucer.prototype.preload = function() {
 
 toot.obstacle.Saucer.prototype.reset = function() {
     var x = this.game.world.width - 100;
-    var miny = 7;
+    var miny = 50;
     var maxy = this.game.world.height - 225;
 
     var y = this.game.rnd.integerInRange(miny, maxy);
@@ -38,30 +42,33 @@ toot.obstacle.Saucer.prototype.create = function() {
 
     //this.spriteSaucer = this.game.add.sprite(w, 128, 'saucer');
     this.spriteSaucer = this.collisionGroup.create(w, 128, 'saucer');
-    //this.spriteSaucer.anchor.setTo(0.5, 0.5);
+    this.spriteSaucer.anchor.setTo(0.5, 0.5);
     this.game.physics.arcade.enable(this.spriteSaucer);
     this.spriteSaucer.body.allowGravity = false;
     this.spriteSaucer.body.immovable = true;
-    this.spriteSaucer.body.setSize(64, 20, 97, 6);
+    this.spriteSaucer.body.setSize(64, 20, -10, -37);
 
     // Additional collider boxes to match the shape of the saucer more closely
     var c1 = this.collisionGroup.create(w, 128, '');
+    c1.anchor.setTo(0.5, 0.5);
     this.game.physics.arcade.enable(c1);
     c1.body.allowGravity = false;
     c1.body.immovable = true;
-    c1.body.setSize(200, 30, 32, 24);
+    c1.body.setSize(200, 22, -4, -16);
 
     var c2 = this.collisionGroup.create(w, 128, '');
+    c2.anchor.setTo(0.5, 0.5);
     this.game.physics.arcade.enable(c2);
     c2.body.allowGravity = false;
     c2.body.immovable = true;
-    c2.body.setSize(200, 30, 32, 66);
+    c2.body.setSize(270, 32, -4, 11);
 
     var c3 = this.collisionGroup.create(w, 128, '');
+    c3.anchor.setTo(0.5, 0.5);
     this.game.physics.arcade.enable(c3);
     c3.allowGravity = false;
     c3.body.immovable = true;
-    c3.body.setSize(270, 32, 0, 48);
+    c3.body.setSize(200, 16, -4, 35);
 
     this.reset();
 };
@@ -72,10 +79,18 @@ toot.obstacle.Saucer.prototype.update = function() {
         this.reset();
     }
 
-    var saucer = this;
-    this.collisionGroup.forEach(function(child) {
-        saucer.game.debug.body(child);
-    });
+    if (this.spriteSaucer.rotation >= this.rotMax ||
+        this.spriteSaucer.rotation <= (this.rotMax * -1)) {
+        this.rotInc = this.rotInc * -1;
+    }
+    this.spriteSaucer.rotation += this.rotInc;
+
+    if (this.debug) {
+        var saucer = this;
+        this.collisionGroup.forEach(function(child) {
+            saucer.game.debug.body(child);
+        });
+    }
 };
 
 toot.obstacle.Saucer.prototype.getColliders = function() {

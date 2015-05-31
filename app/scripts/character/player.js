@@ -4,7 +4,7 @@ toot.character.Player = function(game) {
     this.spriteToot = null;
     this.spriteBlast = null;
 
-    this.collisionGroup = null;
+    this.debug = false;
 };
 
 toot.character.Player.prototype.preload = function() {
@@ -62,6 +62,10 @@ toot.character.Player.prototype.update = function(cursors) {
 
     this.spriteBlast.position.x = this.spriteToot.position.x - 38;
     this.spriteBlast.position.y = this.spriteToot.position.y + 80;
+
+    if (this.debug) {
+        this.game.debug.body(this.spriteToot);
+    }
 };
 
 toot.character.Player.prototype.getColliders = function() {
