@@ -63,6 +63,9 @@ toot.character.Player.prototype.update = function(cursors) {
     this.spriteBlast.position.x = this.spriteToot.position.x - 38;
     this.spriteBlast.position.y = this.spriteToot.position.y + 80;
 
+    // update toot.state variable
+    toot.state['player.y'] = this.spriteToot.position.y + 40;
+
     if (this.debug) {
         this.game.debug.body(this.spriteToot);
     }

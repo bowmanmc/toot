@@ -4,6 +4,10 @@ var toot = {
     fartStrength: 250,
     currentDistance: 0,
 
+    state: {
+        'player.y': 0
+    },
+
     // namespacing
     character: {},
     environment: {},

@@ -14,25 +14,38 @@ toot.obstacle.Saucer = function(game) {
 
 toot.obstacle.Saucer.prototype.preload = function() {
     this.game.load.spritesheet('saucer', 'images/saucer-spritesheet.png', 276, 100);
+
+    this.game.load.audio('ufo', 'sounds/ufo-01.wav');
 };
 
 toot.obstacle.Saucer.prototype.reset = function() {
     var x = this.game.world.width - 100;
-    var miny = 50;
-    var maxy = this.game.world.height - 225;
+    var miny = 65;
+    var maxy = this.game.world.height - 165;
 
-    var y = this.game.rnd.integerInRange(miny, maxy);
+    var y = toot.state['player.y'];
+    if (y < miny) {
+        y = miny;
+    }
+    else if (y > maxy) {
+        y = maxy;
+    }
 
     console.log('resetting saucer to ' + x + ', ' + y);
     this.collisionGroup.forEach(function(item) {
         item.reset(x, y);
     });
     this.collisionGroup.setAll('body.velocity.x', this.velocity * -1);
+
+    this.soundUfo.play('', 0, 1, true, false);
 };
 
 toot.obstacle.Saucer.prototype.create = function() {
     var w = this.game.world.width;
     var h = this.game.world.height;
+
+    this.soundUfo = this.game.add.audio('ufo');
+    this.soundUfo.allowMultiple = false;
 
     this.collisionGroup = this.game.add.group();
     this.game.physics.arcade.enable(this.collisionGroup);
@@ -76,6 +89,7 @@ toot.obstacle.Saucer.prototype.create = function() {
 toot.obstacle.Saucer.prototype.update = function() {
     if (!this.spriteSaucer.inWorld) {
         console.log('saucer is off world!');
+        this.soundUfo.stop();
         this.reset();
     }
 

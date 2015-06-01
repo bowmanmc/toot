@@ -11,9 +11,7 @@ toot.obstacle.Generator.prototype.create = function() {
     var w = this.game.world.width;
     var h = this.game.world.height;
 
-    //this.rock = this.game.add.sprite(w, h / 2, 'rock');
     this.saucer.create();
-
 };
 
 toot.obstacle.Generator.prototype.update = function() {
