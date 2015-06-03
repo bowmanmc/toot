@@ -4,10 +4,6 @@ var toot = {
     fartStrength: 250,
     currentDistance: 0,
 
-    state: {
-        'player.y': 0
-    },
-
     // namespacing
     character: {},
     environment: {},
@@ -44,6 +40,8 @@ var run = function() {
     var vignette = new toot.environment.Vignette(game);
 
     var obstacles = new toot.obstacle.Generator(game);
+
+    player.registerObserver('position', obstacles.updatePlayerPosition);
 
     function preload () {
         background.preload();

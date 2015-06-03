@@ -18,19 +18,7 @@ toot.obstacle.Saucer.prototype.preload = function() {
     this.game.load.audio('ufo', 'sounds/ufo-01.wav');
 };
 
-toot.obstacle.Saucer.prototype.reset = function() {
-    var x = this.game.world.width - 100;
-    var miny = 65;
-    var maxy = this.game.world.height - 165;
-
-    var y = toot.state['player.y'];
-    if (y < miny) {
-        y = miny;
-    }
-    else if (y > maxy) {
-        y = maxy;
-    }
-
+toot.obstacle.Saucer.prototype.reset = function(x, y) {
     console.log('resetting saucer to ' + x + ', ' + y);
     this.collisionGroup.forEach(function(item) {
         item.reset(x, y);
@@ -82,16 +70,17 @@ toot.obstacle.Saucer.prototype.create = function() {
     c3.allowGravity = false;
     c3.body.immovable = true;
     c3.body.setSize(200, 16, -4, 35);
+};
 
-    this.reset();
+toot.obstacle.Saucer.prototype.inWorld = function() {
+    return this.spriteSaucer.inWorld;
+};
+
+toot.obstacle.Saucer.prototype.stop = function() {
+    this.soundUfo.stop();
 };
 
 toot.obstacle.Saucer.prototype.update = function() {
-    if (!this.spriteSaucer.inWorld) {
-        console.log('saucer is off world!');
-        this.soundUfo.stop();
-        this.reset();
-    }
 
     if (this.spriteSaucer.rotation >= this.rotMax ||
         this.spriteSaucer.rotation <= (this.rotMax * -1)) {

@@ -5,6 +5,8 @@ toot.character.Player = function(game) {
     this.spriteBlast = null;
 
     this.debug = false;
+
+    this.observers = {};
 };
 
 toot.character.Player.prototype.preload = function() {
@@ -64,7 +66,10 @@ toot.character.Player.prototype.update = function(cursors) {
     this.spriteBlast.position.y = this.spriteToot.position.y + 80;
 
     // update toot.state variable
-    toot.state['player.y'] = this.spriteToot.position.y + 40;
+    this.notify('position', {
+        x: this.spriteToot.position.x,
+        y: this.spriteToot.position.y + 40
+    });
 
     if (this.debug) {
         this.game.debug.body(this.spriteToot);
@@ -73,4 +78,21 @@ toot.character.Player.prototype.update = function(cursors) {
 
 toot.character.Player.prototype.getColliders = function() {
     return this.spriteToot;
+};
+
+toot.character.Player.prototype.notify = function(event, arg) {
+    var callbacks = this.observers[event];
+    if (typeof callbacks === 'undefined') {
+        return;
+    }
+    callbacks.forEach(function(callback) {
+        callback(arg);
+    });
+};
+
+toot.character.Player.prototype.registerObserver = function(event, callback) {
+    if (typeof this.observers[event] === 'undefined') {
+        this.observers[event] = [];
+    }
+    this.observers[event].push(callback);
 };
