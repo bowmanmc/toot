@@ -1,7 +1,7 @@
 toot.obstacle.Generator = function(game) {
     this.game = game;
-    this.saucer = new toot.obstacle.Saucer(this.game);
-
+    //this.saucer = new toot.obstacle.Saucer(this.game);
+    this.probe = new toot.obstacle.Probe(this.game);
 
     this.playerPositionY = -1;
     var generator = this;
@@ -11,25 +11,34 @@ toot.obstacle.Generator = function(game) {
 };
 
 toot.obstacle.Generator.prototype.preload = function() {
-    this.saucer.preload();
+    //this.saucer.preload();
+    this.probe.preload();
 };
 
 toot.obstacle.Generator.prototype.create = function() {
-    this.saucer.create();
+    //this.saucer.create();
+    this.probe.create();
     this.reset();
 };
 
 toot.obstacle.Generator.prototype.update = function() {
-    if (!this.saucer.inWorld()) {
-        console.log('saucer is off world!');
-        this.saucer.stop();
+    //if (!this.saucer.inWorld()) {
+    //    console.log('saucer is off world!');
+    //    this.saucer.stop();
+    //    this.reset();
+    //}
+
+    //this.saucer.update();
+    if (!this.probe.inWorld()) {
+        console.log('probe is off world!');
+        this.probe.stop();
         this.reset();
     }
-    this.saucer.update();
+    this.probe.update();
 };
 
 toot.obstacle.Generator.prototype.getColliders = function() {
-    return this.saucer.getColliders();
+    return this.probe.getColliders();
 };
 
 toot.obstacle.Generator.prototype.reset = function() {
@@ -47,5 +56,5 @@ toot.obstacle.Generator.prototype.reset = function() {
         y = maxy;
     }
 
-    this.saucer.reset(x, y);
+    this.probe.reset(x, y);
 };

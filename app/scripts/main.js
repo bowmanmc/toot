@@ -4,6 +4,8 @@ var toot = {
     fartStrength: 250,
     currentDistance: 0,
 
+    soundsEnabled: false,
+
     // namespacing
     character: {},
     environment: {},
