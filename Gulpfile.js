@@ -24,7 +24,7 @@ var GH_PAGES_BRANCH = '/tmp/toot';
 
 gulp.task('default', ['develop']);
 gulp.task('develop', ['browser-sync', 'watch']);
-gulp.task('build', ['sass', 'js', 'vendor']);
+gulp.task('build', ['sass', 'babel', 'vendor']);
 
 gulp.task('dist', ['build', 'clean-dist'], function() {
     console.log('Publishing to: ' + GH_PAGES_BRANCH);
@@ -50,8 +50,8 @@ gulp.task('clean-dist', function (done) {
 
 gulp.task('watch', function () {
     gulp.watch('app/styles/**/*.scss', ['sass']);
-    gulp.watch(['app/scripts/**/*.js', '!app/scripts/game.min.js'], ['js']);
-    //gulp.watch('app/src/**/*.js', ['babel']);
+    //gulp.watch(['app/scripts/**/*.js', '!app/scripts/game.min.js'], ['js']);
+    gulp.watch('app/src/**/*.js', ['babel']);
     gulp.watch([
         'app/index.html',
         'app/images/*',
@@ -117,7 +117,6 @@ gulp.task('bower', function () {
         }));
 });
 
-// Doesn't work...
 gulp.task('babel', function() {
     //gulp.src('app/src/main.js')
     gulp.src('app/src/**/*.js')
