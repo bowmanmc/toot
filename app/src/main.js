@@ -15,5 +15,5 @@ var toot = {
 
 var run = function() {
     var game = new Game();
-
+    game.start();
 };

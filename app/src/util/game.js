@@ -3,7 +3,7 @@ class Game {
 
     constructor() {
 
-        console.log('Toot Rippington - Blasts Off!');
+        console.log('-- -- -- --   Toot Rippington - Blasts Off!   -- -- -- --');
 
         var pGame = new Phaser.Game(
             1334, 750,
@@ -13,9 +13,12 @@ class Game {
 
         pGame.state.add('boot', new ScreenBoot());
         pGame.state.add('menu', new ScreenMenu());
+        pGame.state.add('play', new ScreenPlay());
 
         this.pGame = pGame;
-        this.pGame.state.start('boot');
     }
 
+    start() {
+        this.pGame.state.start('boot');
+    }
 }
