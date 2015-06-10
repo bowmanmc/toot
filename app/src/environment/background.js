@@ -2,11 +2,9 @@
 class EnvBackground {
 
     constructor() {
-        console.log('created a new background instance!');
     }
 
     create(game) {
-        console.log('EnvBackground.create()');
         var w = game.world.width;
         var h = game.world.height;
         this.spaceBg = game.add.tileSprite(0, 0, w, h, 'bg-space');

@@ -7,7 +7,12 @@
 class ScreenPlay {
 
     preload(game) {
-        this.bg = new EnvBackground();
+        // Create game objects. Order here matters! Layered Back -> Front
+        this.objects = [];
+        this.objects.push(new EnvBackground());
+        this.objects.push(new EnvGround());
+
+        this.objects.push(new EnvVignette());
     }
 
     create(game) {
@@ -18,7 +23,22 @@ class ScreenPlay {
             this.stats.domElement.style.top = '0px';
         }
 
-        this.bg.create(game);
+        this.setupGame(game);
+
+        // create()
+        this.objects.forEach(obj => {
+            obj.create(game);
+        });
+
+    }
+
+    setupGame(game) {
+        game.physics.startSystem(Phaser.Physics.ARCADE);
+        game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        game.scale.pageAlignHorizontally = true;
+        game.scale.pageAlignVertically = true;
+        game.scale.setScreenSize(true);
+        game.scale.refresh();
     }
 
     update(game) {
@@ -27,8 +47,10 @@ class ScreenPlay {
             this.stats.begin();
         }
 
-        this.bg.update(game);
-
+        // update all objects
+        this.objects.forEach(obj => {
+            obj.update(game);
+        });
 
         if (trConfig.debug) {
             this.stats.end();
