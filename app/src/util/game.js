@@ -1,4 +1,8 @@
 
+var trConfig = {
+    debug: true
+};
+
 class Game {
 
     constructor() {
