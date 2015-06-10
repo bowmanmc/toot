@@ -26,7 +26,7 @@ class ScreenBoot {
 
         var x = game.world.centerX;
         var y = game.world.centerY;
-        var msg = "morphzero"
+        var msg = "MorphZero presents";
         var text = game.add.text(x, y, msg, {
             font: "32px Arial",
             fill: "#ddddd9",
