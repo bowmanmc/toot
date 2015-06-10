@@ -7,18 +7,18 @@
 class ScreenPlay {
 
     preload(game) {
-        // preload assets in UtilPreloader
+        this.bg = new EnvBackground();
     }
 
     create(game) {
-        console.log('ScreenPlay.create');
-
         if (trConfig.debug) {
             this.stats = new Stats();
             document.body.appendChild(this.stats.domElement);
             this.stats.domElement.style.position = 'absolute';
             this.stats.domElement.style.top = '0px';
         }
+
+        this.bg.create(game);
     }
 
     update(game) {
@@ -26,6 +26,8 @@ class ScreenPlay {
         if (trConfig.debug) {
             this.stats.begin();
         }
+
+        this.bg.update(game);
 
 
         if (trConfig.debug) {
