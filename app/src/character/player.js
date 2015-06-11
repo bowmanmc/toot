@@ -3,6 +3,7 @@ class CharPlayer {
 
     constructor() {
         this.observers = {};
+        this.distance = 0;
     }
 
     create(game) {
@@ -56,11 +57,13 @@ class CharPlayer {
         this.spriteBlast.position.x = this.spriteToot.position.x - 38;
         this.spriteBlast.position.y = this.spriteToot.position.y + 80;
 
-        // update toot.state variable
+        // notify observers...
         this.notify('position', {
             x: this.spriteToot.position.x,
             y: this.spriteToot.position.y + 40
         });
+        this.distance++;
+        this.notify('distance', this.distance);
 
         if (trConfig.debug && trConfig.player.debug) {
             game.debug.body(this.spriteToot);

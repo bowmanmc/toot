@@ -2,6 +2,7 @@ class UtilObstacleGenerator {
 
     constructor() {
         this.playerPositionY = 0;
+        this.playerDistance = 0;
     }
 
     create(game) {
@@ -55,20 +56,22 @@ class UtilObstacleGenerator {
     }
 
     addNewObstacles(game) {
-        if (this.activeObstacles.length > 1) {
+        if (this.activeObstacles.length >= 1) {
             return;
         }
-        obstacle = getObstacle();
+
+        var obstacle = this.getRandomObstacle();
         this.reset(game, obstacle);
         this.activeObstacles.push(obstacle);
     }
 
     getRandomObstacle() {
         var keys = Object.keys(this.obstaclePool);
-        var numTypes = keys.length - 1;
+        var numTypes = keys.length;
         var keyIdx = Math.floor(Math.random() * numTypes);
         var key = keys[keyIdx];
-
+        var pool = this.obstaclePool[key];
+        return pool[0];
     }
 
     reset(game, obstacle) {
@@ -94,6 +97,10 @@ class UtilObstacleGenerator {
 
     updatePlayerPosition(pos) {
         this.playerPositionY = pos.y;
+    }
+
+    updatePlayerDistance(distance) {
+        this.playerDistance = distance;
     }
 
     getColliders() {

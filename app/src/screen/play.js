@@ -18,14 +18,24 @@ class ScreenPlay {
         this.objects.push(this.player);
 
         var obstacles = new UtilObstacleGenerator();
+        var uiDistance = new UiDistance();
         this.objects.push(obstacles);
+        this.objects.push(uiDistance);
         this.player.registerObserver(
             'position',
             function(pos) {
                 obstacles.updatePlayerPosition(pos);
             }
         );
+        this.player.registerObserver(
+            'distance',
+            function(distance) {
+                obstacles.updatePlayerDistance(distance);
+                uiDistance.updatePlayerDistance(distance);
+            }
+        );
         this.obstacles = obstacles;
+        this.uiDistance = uiDistance;
 
         this.objects.push(new EnvVignette());
     }
