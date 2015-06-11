@@ -5,21 +5,73 @@ class UtilObstacleGenerator {
     }
 
     create(game) {
-        this.probe = new CharProbe();
-        this.probe.create(game);
-        this.reset(game);
+
+        this.obstaclePool = {
+            'saucer': [
+                new CharSaucer(),
+                new CharSaucer(),
+                new CharSaucer()
+            ],
+            'probe': [
+                new CharProbe(),
+                new CharProbe(),
+                new CharProbe()
+            ]
+        };
+        var generator = this;
+        Object.keys(this.obstaclePool).forEach(obstacleType => {
+            this.obstaclePool[obstacleType].forEach(obstacle => {
+                obstacle.create(game);
+                generator.resetTo(obstacle, -200, -200);
+                obstacle.stop();
+            });
+        });
+
+        this.activeObstacles = [];
+        // this.reset(game, this.obstaclePool.saucer[0]);
+        // this.activeObstacles.push(this.obstaclePool.saucer[0]);
     }
 
     update(game) {
-        if (!this.probe.inWorld()) {
-            console.log('probe is off world!');
-            this.probe.stop();
-            this.reset(game);
+        var inactive = [];
+        var len = this.activeObstacles.length;
+        var i, obstacle;
+        for (i = 0; i < len; i++) {
+            obstacle = this.activeObstacles[i];
+            obstacle.update(game);
+
+            if (!obstacle.inWorld()) {
+                obstacle.stop();
+                inactive.push(i);
+            }
         }
-        this.probe.update(game);
+
+        len = inactive.length;
+        for (i = 0; i < len; i++) {
+            this.activeObstacles.splice(inactive[i], 1);
+        }
+
+        this.addNewObstacles(game);
     }
 
-    reset(game) {
+    addNewObstacles(game) {
+        if (this.activeObstacles.length > 1) {
+            return;
+        }
+        obstacle = getObstacle();
+        this.reset(game, obstacle);
+        this.activeObstacles.push(obstacle);
+    }
+
+    getRandomObstacle() {
+        var keys = Object.keys(this.obstaclePool);
+        var numTypes = keys.length - 1;
+        var keyIdx = Math.floor(Math.random() * numTypes);
+        var key = keys[keyIdx];
+
+    }
+
+    reset(game, obstacle) {
         var x = game.world.width - 100;
         var miny = 65;
         var maxy = game.world.height - 165;
@@ -33,7 +85,11 @@ class UtilObstacleGenerator {
             y = maxy;
         }
 
-        this.probe.reset(x, y);
+        this.resetTo(obstacle, x, y);
+    }
+
+    resetTo(obstacle, x, y) {
+        obstacle.reset(x, y);
     }
 
     updatePlayerPosition(pos) {
@@ -41,6 +97,10 @@ class UtilObstacleGenerator {
     }
 
     getColliders() {
-        return this.probe.getColliders();
+        var colliders = [];
+        this.activeObstacles.forEach(obstacle => {
+            colliders.push(obstacle.getColliders());
+        });
+        return colliders;
     }
 }
