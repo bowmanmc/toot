@@ -3,8 +3,13 @@ class CharProbe {
 
     constructor() {
         this.velocity = 200;
+
         this.rotMax = 0.05;
         this.rotInc = 0.005;
+
+        this.centerY = 0;
+        this.yDeltaMax = 125;
+        this.yDeltaInc = 2;
     }
 
     create(game) {
@@ -30,6 +35,12 @@ class CharProbe {
         }
         this.spriteProbe.rotation += this.rotInc;
 
+        if (this.spriteProbe.position.y >= (this.centerY + this.yDeltaMax) ||
+            this.spriteProbe.position.y <= (this.centerY - this.yDeltaMax)) {
+            this.yDeltaInc = this.yDeltaInc * -1;
+        }
+        this.spriteProbe.position.y += this.yDeltaInc;
+
         if (trConfig.obstacle.debug) {
             this.collisionGroup.forEach(child => {
                 game.debug.body(child);
@@ -46,6 +57,7 @@ class CharProbe {
 
     reset(x, y) {
         console.log('resetting Probe to ' + x + ', ' + y);
+        this.centerY = y;
         this.collisionGroup.forEach(item => {
             item.reset(x, y);
         });

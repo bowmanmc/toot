@@ -3,9 +3,6 @@ class UtilObstacleGenerator {
     constructor() {
         this.playerPositionY = 0;
         this.playerDistance = 0;
-    }
-
-    create(game) {
 
         this.obstaclePool = {
             'saucer': [
@@ -17,8 +14,16 @@ class UtilObstacleGenerator {
                 new CharProbe(),
                 new CharProbe(),
                 new CharProbe()
+            ],
+            'worm': [
+                new CharWorm(),
+                new CharWorm(),
+                new CharWorm()
             ]
         };
+    }
+
+    create(game) {
         var generator = this;
         Object.keys(this.obstaclePool).forEach(obstacleType => {
             this.obstaclePool[obstacleType].forEach(obstacle => {
@@ -29,8 +34,6 @@ class UtilObstacleGenerator {
         });
 
         this.activeObstacles = [];
-        // this.reset(game, this.obstaclePool.saucer[0]);
-        // this.activeObstacles.push(this.obstaclePool.saucer[0]);
     }
 
     update(game) {
@@ -49,7 +52,9 @@ class UtilObstacleGenerator {
 
         len = inactive.length;
         for (i = 0; i < len; i++) {
+            // take it out of activeObstacles
             this.activeObstacles.splice(inactive[i], 1);
+
         }
 
         this.addNewObstacles(game);

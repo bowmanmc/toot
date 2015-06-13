@@ -32,6 +32,7 @@ class UtilPreloader {
         // Obstacles
         game.load.spritesheet('obs.saucer', 'images/saucer-spritesheet.png', 276, 100);
         game.load.spritesheet('obs.probe', 'images/probe-spritesheet.png', 128, 107);
+        game.load.spritesheet('obs.worm', 'images/moonworm-spritesheet.png', 133, 50);
 
     }
 
