@@ -36,6 +36,8 @@ class CharPlayer {
             this.spriteToot.body.velocity.y = trConfig.player.fartStrength * -1;
             this.spriteBlast.animations.play('fart');
 
+            this.notify('fart', {});
+
             if (!trConfig.mute && !trConfig.player.mute) {
                 //this.soundFart.play('', 0.35, 1, false, false);
                 this.soundFart.play('', 0, 1, false, false);

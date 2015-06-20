@@ -24,6 +24,8 @@ class ScreenBoot {
         console.log('ScreenBoot assets loaded in ' + duration.format('HH:mm:ss:SSS'));
         this.isLoaded = true;
 
+        trConfig.setupGame(game);
+
         var x = game.world.centerX;
         var y = game.world.centerY;
         var msg = "MorphZero presents";

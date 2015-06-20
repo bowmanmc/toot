@@ -37,6 +37,14 @@ class ScreenPlay {
         this.obstacles = obstacles;
         this.uiDistance = uiDistance;
 
+        var playScreen = this;
+        this.player.registerObserver(
+            'fart',
+            function() {
+                playScreen.shakeMagnitude = trConfig.shakeMagnitude;
+            }
+        );
+
         this.objects.push(new EnvVignette());
     }
 
@@ -48,7 +56,7 @@ class ScreenPlay {
             this.stats.domElement.style.top = '0px';
         }
 
-        this.setupGame(game);
+        trConfig.setupGame(game);
 
         // create()
         this.objects.forEach(obj => {
@@ -82,8 +90,32 @@ class ScreenPlay {
             obj.update(game);
         });
 
+        this.shake(game);
+
         if (trConfig.debug) {
             this.stats.end();
+        }
+    }
+
+    shake(game) {
+        if (this.shakeMagnitude > 0) {
+            var rand1 = game.rnd.integerInRange(
+                this.shakeMagnitude * -1,
+                this.shakeMagnitude
+            );
+            var rand2 = game.rnd.integerInRange(
+                this.shakeMagnitude * -1,
+                this.shakeMagnitude
+            );
+            game.world.setBounds(
+                rand1, rand2,
+                game.width + rand1, game.height + rand2
+            );
+            this.shakeMagnitude--;
+
+            if (this.shakeMagnitude <= 0) {
+                game.world.setBounds(0, 0, game.width,game.height); // normalize after shake?
+            }
         }
     }
 
@@ -91,12 +123,4 @@ class ScreenPlay {
         console.log('collision detected!');
     }
 
-    setupGame(game) {
-        game.physics.startSystem(Phaser.Physics.ARCADE);
-        game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-        game.scale.pageAlignHorizontally = true;
-        game.scale.pageAlignVertically = true;
-        game.scale.setScreenSize(true);
-        game.scale.refresh();
-    }
 }
