@@ -14,11 +14,6 @@ class UtilObstacleGenerator {
                 new CharProbe(),
                 new CharProbe(),
                 new CharProbe()
-            ],
-            'worm': [
-                new CharWorm(),
-                new CharWorm(),
-                new CharWorm()
             ]
         };
     }

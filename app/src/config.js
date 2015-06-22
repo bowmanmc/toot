@@ -2,9 +2,9 @@ var trConfig = {
 
     debug: true,
     gravity: 300,
-    shakeMagnitude: 10,
+    shakeMagnitude: 2,
 
-    mute: false,
+    mute: true,
 
     player: {
         debug: false,

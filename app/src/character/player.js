@@ -14,7 +14,7 @@ class CharPlayer {
         game.physics.arcade.enable(this.spriteToot);
 
         this.spriteToot.body.gravity.y = trConfig.gravity;
-        this.spriteToot.body.collideWorldBounds = true;
+        this.spriteToot.body.collideWorldBounds = false;
 
         this.spriteToot.animations.add('run', [5, 6, 7, 8], 6, true);
         this.spriteToot.animations.add('land', [5, 6, 7, 8], 2, true);
@@ -44,17 +44,7 @@ class CharPlayer {
             }
         }
 
-        if (this.spriteToot.body.touching.down) {
-            this.spriteToot.animations.play('run');
-            this.spriteBlast.frame = 0;
-        }
-        else if (this.spriteToot.body.velocity.y > 0 &&
-                 this.spriteToot.body.velocity.y > (toot.fartStrength * 0.66)) {
-            this.spriteToot.animations.play('land');
-        }
-        else {
-            this.spriteToot.frame = 4;
-        }
+        this.spriteToot.frame = 4;
 
         this.spriteBlast.position.x = this.spriteToot.position.x - 38;
         this.spriteBlast.position.y = this.spriteToot.position.y + 80;
@@ -74,6 +64,10 @@ class CharPlayer {
 
     getColliders() {
         return this.spriteToot;
+    }
+
+    inWorld() {
+        return this.spriteToot.inWorld;
     }
 
     notify(event, arg) {

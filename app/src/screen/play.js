@@ -11,8 +11,8 @@ class ScreenPlay {
         this.objects = [];
         this.objects.push(new EnvBackground());
 
-        this.ground = new EnvGround();
-        this.objects.push(this.ground);
+        //this.ground = new EnvGround();
+        //this.objects.push(this.ground);
 
         this.player = new CharPlayer();
         this.objects.push(this.player);
@@ -42,6 +42,9 @@ class ScreenPlay {
             'fart',
             function() {
                 playScreen.shakeMagnitude = trConfig.shakeMagnitude;
+                if (window.navigator && window.navigator.vibrate) {
+                    navigator.vibrate(trConfig.shakeMagnitude * 10);
+                }
             }
         );
 
@@ -71,19 +74,26 @@ class ScreenPlay {
             this.stats.begin();
         }
 
-        // player vs ground
-        game.physics.arcade.collide(
-            this.player.getColliders(),
-            this.ground.getColliders()
-        );
+        // // player vs ground
+        // game.physics.arcade.collide(
+        //     this.player.getColliders(),
+        //     this.ground.getColliders()
+        // );
         // player vs obstacles
         game.physics.arcade.collide(
             this.player.getColliders(),
             this.obstacles.getColliders(),
-            this.obstacleCollisionHandler,
+            function() {
+                console.log('Player collision detected!');
+                this.gameLost(game);
+            },
             null,
             this
         );
+        if (!this.player.inWorld()) {
+            console.log('Player off world!');
+            this.gameLost(game);
+        }
 
         // update all objects
         this.objects.forEach(obj => {
@@ -119,8 +129,8 @@ class ScreenPlay {
         }
     }
 
-    obstacleCollisionHandler(player, obstacle) {
-        console.log('collision detected!');
+    gameLost(game) {
+        game.state.start('lost');
     }
 
 }

@@ -14,6 +14,7 @@ class Game {
         pGame.state.add('boot', new ScreenBoot());
         pGame.state.add('menu', new ScreenMenu());
         pGame.state.add('play', new ScreenPlay());
+        pGame.state.add('lost', new ScreenLost());
 
         this.pGame = pGame;
     }
