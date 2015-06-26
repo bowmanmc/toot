@@ -10,18 +10,28 @@ class CharPlayer {
         var startX = game.world.width * 0.15;
         var startY = game.world.height - 256;
 
-        this.spriteToot = game.add.sprite(startX, startY, 'player.toot');
+        this.collisionGroup = game.add.group();
+        game.physics.arcade.enable(this.collisionGroup);
+        this.collisionGroup.checkWorldBounds = true;
+
+        // spriteToot collider box is the helmet
+        this.spriteToot = this.collisionGroup.create(startX, startY, 'player.toot');
+        this.spriteToot.anchor.setTo(0.5, 0.5);
         game.physics.arcade.enable(this.spriteToot);
-
         this.spriteToot.body.gravity.y = trConfig.gravity;
-        this.spriteToot.body.collideWorldBounds = false;
+        this.spriteToot.body.setSize(48, 48, 0, -12);
 
-        this.spriteToot.animations.add('run', [5, 6, 7, 8], 6, true);
-        this.spriteToot.animations.add('land', [5, 6, 7, 8], 2, true);
+        // collider for the body
+        var c1 = this.collisionGroup.create(startX, startY, '');
+        c1.anchor.setTo(0.5, 0.5);
+        game.physics.arcade.enable(c1);
+        c1.body.allowGravity = true;
+        c1.body.gravity.y = trConfig.gravity;
+        c1.body.setSize(28, 28, 8, 24);
 
         // blast
-        this.spriteBlast = game.add.sprite(startX - 60, startY + 60, 'player.blast');
-        this.spriteBlast.animations.add('fart', [1, 3, 4, 4, 0], 10, false);
+        this.spriteBlast = game.add.sprite(startX, startY, 'player.blast');
+        this.spriteBlast.animations.add('fart', [1, 3, 4, 4, 0], 20, false);
 
         this.soundFart = game.add.audio('player.fart');
         this.soundFart.allowMultiple = false;
@@ -29,25 +39,29 @@ class CharPlayer {
 
     update(game) {
         //  Reset the players velocity (movement)
-        this.spriteToot.body.velocity.x = 0;
+        this.collisionGroup.forEach(function(child) {
+            child.body.velocity.x = 0;
+        });
+        //this.spriteToot.body.velocity.x = 0;
 
         if (game.input.activePointer.isDown) {
 
-            this.spriteToot.body.velocity.y = trConfig.player.fartStrength * -1;
-            this.spriteBlast.animations.play('fart');
+            this.collisionGroup.forEach(function(child) {
+                child.body.velocity.y = trConfig.player.fartStrength * -1;
+            });
 
+            this.spriteBlast.animations.play('fart');
             this.notify('fart', {});
 
             if (!trConfig.mute && !trConfig.player.mute) {
-                //this.soundFart.play('', 0.35, 1, false, false);
                 this.soundFart.play('', 0, 1, false, false);
             }
         }
 
         this.spriteToot.frame = 4;
 
-        this.spriteBlast.position.x = this.spriteToot.position.x - 38;
-        this.spriteBlast.position.y = this.spriteToot.position.y + 80;
+        this.spriteBlast.position.x = this.spriteToot.position.x - 72;
+        this.spriteBlast.position.y = this.spriteToot.position.y + 34;
 
         // notify observers...
         this.notify('position', {
@@ -58,7 +72,9 @@ class CharPlayer {
         this.notify('distance', this.distance);
 
         if (trConfig.debug && trConfig.player.debug) {
-            game.debug.body(this.spriteToot);
+            this.collisionGroup.forEach(function(child) {
+                game.debug.body(child);
+            });
         }
     }
 

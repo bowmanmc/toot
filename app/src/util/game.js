@@ -20,6 +20,7 @@ class Game {
     }
 
     start() {
-        this.pGame.state.start('boot');
+        //this.pGame.state.start('boot');
+        this.pGame.state.start('menu');
     }
 }
