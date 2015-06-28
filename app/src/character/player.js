@@ -19,7 +19,7 @@ class CharPlayer {
         this.spriteToot.anchor.setTo(0.5, 0.5);
         game.physics.arcade.enable(this.spriteToot);
         this.spriteToot.body.gravity.y = trConfig.gravity;
-        this.spriteToot.body.setSize(48, 48, 0, -12);
+        this.spriteToot.body.setSize(40, 40, 0, -10);
 
         // collider for the body
         var c1 = this.collisionGroup.create(startX, startY, '');
