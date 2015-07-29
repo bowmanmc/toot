@@ -130,6 +130,9 @@ class ScreenPlay {
     }
 
     gameLost(game) {
+        this.objects.forEach(obj => {
+            //obj.stop(game);
+        });
         game.state.start('lost');
     }
 

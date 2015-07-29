@@ -14,7 +14,7 @@ var trConfig = {
 
     obstacle: {
         debug: false,
-        mute: false
+        mute: true
     },
 
     setupGame: function(game, enablePhysics) {

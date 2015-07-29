@@ -9,12 +9,12 @@ class UtilObstacleGenerator {
                 new CharSaucer(),
                 new CharSaucer(),
                 new CharSaucer()
-            ],
+            ]/*,
             'probe': [
                 new CharProbe(),
                 new CharProbe(),
                 new CharProbe()
-            ]
+            ]*/
         };
     }
 
