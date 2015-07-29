@@ -4,7 +4,7 @@ var trConfig = {
     gravity: 300,
     shakeMagnitude: 2,
 
-    mute: true,
+    mute: false,
 
     player: {
         debug: false,
@@ -14,7 +14,7 @@ var trConfig = {
 
     obstacle: {
         debug: false,
-        mute: false
+        mute: true
     },
 
     setupGame: function(game, enablePhysics) {
