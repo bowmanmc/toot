@@ -65,7 +65,7 @@ class CharSaucer {
     }
 
     stop() {
-        this.soundUfo.stop();
+        this.soundUfo.pause();
     }
 
     reset(x, y) {

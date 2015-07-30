@@ -103,6 +103,12 @@ class UtilObstacleGenerator {
         this.playerDistance = distance;
     }
 
+    stop(game) {
+        this.activeObstacles.forEach(obstacle => {
+            obstacle.stop(game);
+        });
+    }
+
     getColliders() {
         var colliders = [];
         this.activeObstacles.forEach(obstacle => {
