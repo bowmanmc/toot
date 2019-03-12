@@ -1,17 +1,10 @@
 {
-  "name": "toot-rippington",
-  "version": "1.0.0",
-  "description": "Toot Rippington: Blasts Off",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/bowmanmc/toot.git"
-  },
-  "author": "Michael Bowman <bowmanmc@gmail.com>",
-  "license": "MIT",
-  "homepage": "",
+  "name": "toot2",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "node-sass": "^4.11.0",
-    "phaser": "^3.16.2",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
     "react-scripts": "2.1.8"
   },
   "scripts": {
